@@ -1,12 +1,26 @@
-import React from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import LoginPage from "./pages/LoginPage";
+import MainPage from "./pages/MainPage";
 
-const App = () => {
+function PrivateRoute({ children }) {
+  const user = localStorage.getItem("user");
+  return user ? children : <Navigate to="/" replace />;
+}
+
+export default function App() {
   return (
-    <div>
-       <h1 className="text-3xl font-bold text-blue-600">App prête</h1>
-       <div className="text-3xl"><h2 className="font-bold text-blue-600">ttes</h2></div>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route
+          path="/main"
+          element={
+            <PrivateRoute>
+              <MainPage />
+            </PrivateRoute>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
   );
-};
-
-export default App;
+}
