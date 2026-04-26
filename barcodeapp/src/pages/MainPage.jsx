@@ -10,6 +10,8 @@ import {
   deleteProduct,
   updateProduct,
   getProductUnits,
+  getBarcodeImageUrl,
+  getUnitBarcodeImageUrl
 } from "../services/productService";
 
 export default function MainPage() {
@@ -127,9 +129,7 @@ export default function MainPage() {
           }</p>
 
           <img 
-            src="http://localhost:3000/api/produits/${
-              product.id_Produit
-            }/codebarre" 
+            src="${getBarcodeImageUrl(product.id_Produit)}"
             alt="barcode" 
           />
 
@@ -171,7 +171,7 @@ export default function MainPage() {
           <p>ID Unité : ${u.id_unite}</p>
           <p>${u.Produit_name}</p>
           <img 
-            src="http://localhost:3000/api/unites/${u.id_unite}/codebarre" 
+            src="${getUnitBarcodeImageUrl(u.id_unite)}"
             alt="Code barre unité ${u.id_unite}" 
           />
           <p class="code">${u.code_barre13}</p>
